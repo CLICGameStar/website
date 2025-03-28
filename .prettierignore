@@ -1,0 +1,12 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/dist
+**/.cache
+
+app/.next
+
+oas.json
+
+directus-config/
