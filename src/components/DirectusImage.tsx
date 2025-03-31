@@ -32,7 +32,7 @@ export default function DirectusImage({
   name?: string | null;
   className?: string;
   cover?: boolean;
-  sizes: string;
+  sizes?: string;
 }) {
   if (img) {
     return (
