@@ -2,6 +2,7 @@ import { directus } from "@/directus";
 import { readSingleton } from "@directus/sdk";
 import { getTranslation, queryTranslations } from "@/locales";
 import DirectusImage from "@/components/DirectusImage";
+import Navigation from "@/components/Navigation";
 
 export default async function Home() {
   const association = await directus().request(
@@ -14,12 +15,13 @@ export default async function Home() {
 
   return (
     <main>
-      <p></p>
-      <div>
-        <DirectusImage img={translations.banner} sizes="50rem" cover />
-      </div>
-
-      <pre>{translations.description}</pre>
+      <Navigation
+        navLinks={[
+          { name: "Home", href: "/" },
+          { name: "Events", href: "/events" },
+          { name: "Projects", href: "/projects" },
+        ]}
+      />
     </main>
   );
 }
