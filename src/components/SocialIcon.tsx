@@ -22,19 +22,24 @@ const socialIcons: Record<string, React.FC> = {
 
 export default function SocialIcon({
   social_type,
-  href,
+  url,
 }: {
   social_type: string;
-  href: string;
+  url: string;
 }) {
   const Icon = socialIcons[social_type];
 
+  if (!Icon) {
+    console.error(`Unknown social type: ${social_type}`);
+    return null;
+  }
+
   return (
     <a
-      href={href}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="social-icon"
+      className="icon-link"
     >
       <Icon />
     </a>
