@@ -1,7 +1,7 @@
 # Docker-compose stack for development purposes
 # DO NOT USE THIS IN PRODUCTION
 
-name: clic-template
+name: gamestar-website
 
 include:
   - path: directus-config/directus.yaml
