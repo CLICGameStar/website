@@ -1,13 +1,16 @@
 import Link from "next/link";
+import { ReactElement } from "react";
 
 export default function NavMenu({
   isOpen,
   toggleMenu,
   navLinks,
+  languageDropdown,
 }: {
   isOpen: boolean;
   toggleMenu: () => void;
   navLinks: { name: string; href: string }[];
+  languageDropdown: ReactElement;
 }) {
   return (
     <div className={`nav-menu ${isOpen ? "open" : ""}`}>
@@ -19,6 +22,7 @@ export default function NavMenu({
             </Link>
           </li>
         ))}
+        <li>{languageDropdown}</li>
       </ul>
     </div>
   );

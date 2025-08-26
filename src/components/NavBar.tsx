@@ -2,15 +2,18 @@ import Link from "next/link";
 import MenuIcon from "./icons/MenuIcon";
 import CloseIcon from "./icons/CloseIcon";
 import Logo from "../../public/gamestar-simple.svg";
+import { ReactElement } from "react";
 
 export default function NavBar({
   isOpen,
   toggleMenu,
   navLinks,
+  languageDropdown,
 }: {
   isOpen: boolean;
   toggleMenu: () => void;
   navLinks: { name: string; href: string }[];
+  languageDropdown: ReactElement;
 }) {
   var MenuSwitchIcon = isOpen ? CloseIcon : MenuIcon;
   var alt = isOpen ? "Close" : "Menu";
@@ -29,15 +32,14 @@ export default function NavBar({
               </Link>
             </li>
           ))}
+          <li>{languageDropdown}</li>
         </ul>
       </nav>
-      <button
-        aria-label="Toggle Menu"
-        className={`menu-toggle ${isOpen ? "open" : ""}`}
-        onClick={toggleMenu}
-      >
-        <MenuSwitchIcon />
-      </button>
+      <div className="nav-bar-right">
+        <div onClick={toggleMenu}>
+          <MenuSwitchIcon />
+        </div>
+      </div>
     </header>
   );
 }
