@@ -1,0 +1,65 @@
+@use "../abstracts" as *;
+
+.dropdown {
+  position: relative;
+  display: flex;
+  .card {
+    cursor: pointer;
+    margin-left: 0;
+  }
+
+  @include hover-supported() {
+    &:hover .dropdown-content {
+      display: block;
+    }
+  }
+
+  &.open .dropdown-content {
+    display: block;
+  }
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 3rem;
+  backdrop-filter: blur(4px);
+  border-radius: 0.5rem;
+
+  z-index: 1;
+
+  padding: 0.3em;
+
+  overflow: hidden;
+
+  border: 3px solid black;
+  background-color: var(--bg-color);
+
+  &.right-align {
+    right: 0;
+  }
+  &:not(.right-align) {
+    left: 0;
+  }
+
+  &.right-align .dropdown-item {
+    text-align: right;
+    justify-content: end;
+  }
+}
+
+.dropdown-content .dropdown-item {
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
+  padding: 0.4rem 0.6rem;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

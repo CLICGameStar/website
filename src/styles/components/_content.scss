@@ -1,0 +1,48 @@
+.content {
+  margin: 0 auto;
+  padding: 1em;
+  max-width: 70ch;
+  line-height: 1.6;
+  font-size: 16px;
+  color: #333;
+
+  h1 {
+    text-align: center;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: #222;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+  }
+
+  blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+  }
+}

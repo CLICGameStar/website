@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 3em;
-  margin: 2em;
+  margin: 1em;
   justify-content: center;
   align-items: center;
 }
@@ -61,11 +61,11 @@
     }
 
     &:hover::before {
-      transform: scale(1) rotate(180deg);
+      transform: scale(1) rotate(160deg);
     }
 
     &:hover::after {
-      transform: scale(1.1) rotate(-180deg);
+      transform: scale(1.1) rotate(-160deg);
     }
   }
 }
