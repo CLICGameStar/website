@@ -1,10 +1,10 @@
-# TODO
+# GAME\* Website
 
-- In [docker-compose.yaml](docker-compose.yaml), change the name of the compose.
+<!-- - In [docker-compose.yaml](docker-compose.yaml), change the name of the compose. -->
 
-# NextJS App Template
+<!-- # NextJS App Template
 
-This is a template for app using [NextJS](https://nextjs.org) along with a [Directus](https://directus.io) CMS
+This is a template for app using [NextJS](https://nextjs.org) along with a [Directus](https://directus.io) CMS -->
 
 ## Content
 
