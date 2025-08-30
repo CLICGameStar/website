@@ -1,11 +1,5 @@
 # GAME\* Website
 
-<!-- - In [docker-compose.yaml](docker-compose.yaml), change the name of the compose. -->
-
-<!-- # NextJS App Template
-
-This is a template for app using [NextJS](https://nextjs.org) along with a [Directus](https://directus.io) CMS -->
-
 ## Content
 
 ### App
@@ -18,11 +12,9 @@ To fetch data from Directus, it should be done on server-side, using the [`direc
 
 To store and provide dynamic content, we use the service [Directus](https://directus.io/), which acts as a content management server.It is ran separately from the website in the infrastructure. See its [documentation](directus/README.md).
 
-### Internationalization (i18n)
+### Internationalization
 
-```
-TODO
-```
+Internationalization is done through `[lang]` that is the first particle of all page paths. In particular `lang` may be either `en` or `fr`, and this is then used to query the correct translations from Directus.
 
 ## Setup
 
@@ -69,10 +61,8 @@ The code must be formatted with Prettier (using `npx prettier --write <directory
 
 The commit message must follow [conventional commits convention](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13). This is both checked by a local hook and by the CI.
 
-Style scss must be imported into code files and classnames must not be referenced in clear.
-
 ## Deployment
 
 After a push on the main branch, the website is automatically built into a docker image, and pushed to [GHRC](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry). When opening or pushing to a pull-request on the main branch, the images are also built, but not pushed, for sanity check.
 
-The rest of the deployment is done by a dedicated [repository](https://github.com/clicepfl/clic-website-v2-infra).
+The rest of the deployment is done by a dedicated [repository](https://github.com/clicepfl/infra).
