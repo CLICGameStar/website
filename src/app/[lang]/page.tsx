@@ -10,7 +10,7 @@ import {
 } from "../../../directus-config/types/aliases";
 import ComiteeCard from "@/components/ComiteeCard";
 import ComiteeBar from "@/components/ComiteeBar";
-import { GameStar } from "@/types/aliases";
+import { GameStar, GameStarEvent } from "@/types/aliases";
 import Image from "next/image";
 import EventCard from "@/components/EventCard";
 import Link from "next/link";
@@ -60,6 +60,8 @@ export default async function Home({ params }: { params: { lang: string } }) {
     }),
   )) as GameStarEvent[];
 
+  let upcomingEvents = getUpcomingEvents(events);
+
   return (
     <>
       <div className="hero">
@@ -80,9 +82,14 @@ export default async function Home({ params }: { params: { lang: string } }) {
       </div>
       <div className="content">
         <h2>Upcoming events</h2>
-        {events.map((event) => (
-          <EventCard key={event.slug} event={event} lang={lang} />
-        ))}
+        <div className="events-grid">
+          {upcomingEvents.map((event) => (
+            <EventCard key={event.slug} event={event} lang={lang} />
+          ))}
+        </div>
+        {upcomingEvents.length === 0 ? (
+          <p>No upcoming events at the moment. Please check back later!</p>
+        ) : null}
         <span className="boxlink">
           <ForwardArrowIcon />
           <Link href={`${lang}/events`}>See all events</Link>
@@ -104,4 +111,15 @@ export default async function Home({ params }: { params: { lang: string } }) {
       />
     </>
   );
+}
+
+export function getUpcomingEvents(events: GameStarEvent[]): GameStarEvent[] {
+  const now = new Date();
+
+  return events
+    .map((event) => ({ ...event, startDate: new Date(event.start) }))
+    .filter((event) => event.startDate > now)
+    .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
+    .slice(0, 3)
+    .map(({ startDate, ...event }) => event);
 }
