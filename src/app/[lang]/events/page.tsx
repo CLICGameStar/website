@@ -4,6 +4,7 @@ import { readItems, readSingleton } from "@directus/sdk";
 import { GameStarEvent } from "@/types/aliases";
 import { get } from "http";
 import Link from "next/link";
+import EventCard from "@/components/EventCard";
 
 export default async function Events({ params }: { params: { lang: string } }) {
   const { lang } = await params;
@@ -17,17 +18,10 @@ export default async function Events({ params }: { params: { lang: string } }) {
   )) as GameStarEvent[];
 
   return (
-    <div className="article">
+    <div className="content">
       <h1>Events</h1>
       {events.map((event) => (
-        <div key={event.slug}>
-          <h2>
-            <Link href={`/events/${event.slug}`}>
-              {getTranslation(event, lang).title}
-            </Link>
-          </h2>
-          <p>{getTranslation(event, lang).description}</p>
-        </div>
+        <EventCard key={event.slug} event={event} lang={lang} />
       ))}
       {events.length === 0 ? <p>Coming soon !</p> : null}
     </div>

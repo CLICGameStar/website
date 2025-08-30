@@ -64,3 +64,26 @@ svg {
     object-fit: cover;
   }
 }
+
+.boxlink {
+  display: flex;
+  align-items: end;
+  font-weight: bold;
+  margin: 1em 0;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5em;
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

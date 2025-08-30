@@ -12,6 +12,9 @@ import ComiteeCard from "@/components/ComiteeCard";
 import ComiteeBar from "@/components/ComiteeBar";
 import { GameStar } from "@/types/aliases";
 import Image from "next/image";
+import EventCard from "@/components/EventCard";
+import Link from "next/link";
+import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
 
 export default async function Home({ params }: { params: { lang: string } }) {
   const { lang } = await params;
@@ -49,6 +52,14 @@ export default async function Home({ params }: { params: { lang: string } }) {
 
   const game_star_translation = getTranslation(game_star, lang);
 
+  let events = (await directus().request(
+    //@ts-ignore
+    readItems("game_star_events", {
+      filter: { status: { _eq: "published" } },
+      ...queryTranslations,
+    }),
+  )) as GameStarEvent[];
+
   return (
     <>
       <div className="hero">
@@ -68,6 +79,14 @@ export default async function Home({ params }: { params: { lang: string } }) {
         </picture>
       </div>
       <div className="content">
+        <h2>Upcoming events</h2>
+        {events.map((event) => (
+          <EventCard key={event.slug} event={event} lang={lang} />
+        ))}
+        <span className="boxlink">
+          <ForwardArrowIcon />
+          <Link href={`${lang}/events`}>See all events</Link>
+        </span>
         <h2>{game_star_translation.about_title}</h2>
         <p>{game_star_translation.about_text}</p>
         <h2>Committee</h2>

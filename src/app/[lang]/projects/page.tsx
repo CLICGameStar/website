@@ -21,7 +21,7 @@ export default async function Projects({
   )) as GameStarProject[];
 
   return (
-    <div className="article">
+    <div className="content">
       <h1>Projects</h1>
       {projects.map((project) => (
         <div key={project.slug}>

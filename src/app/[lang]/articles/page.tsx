@@ -21,7 +21,7 @@ export default async function Articles({
   )) as GameStarArticle[];
 
   return (
-    <div className="article">
+    <div className="content">
       <h1>Articles</h1>
       {articles.map((article) => (
         <div key={article.slug}>
