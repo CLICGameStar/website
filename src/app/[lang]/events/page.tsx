@@ -20,9 +20,11 @@ export default async function Events({ params }: { params: { lang: string } }) {
   return (
     <div className="content">
       <h1>Events</h1>
-      {events.map((event) => (
-        <EventCard key={event.slug} event={event} lang={lang} />
-      ))}
+      <div className="events-list">
+        {events.map((event) => (
+          <EventCard key={event.slug} event={event} lang={lang} />
+        ))}
+      </div>
       {events.length === 0 ? <p>Coming soon !</p> : null}
     </div>
   );
