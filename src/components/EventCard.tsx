@@ -16,7 +16,7 @@ export default function EventCard({
   });
   return (
     <div key={event.slug} className="event-card">
-      <Link href={`${lang}/events/${event.slug}`}>
+      <Link href={`/${lang}/events/${event.slug}`}>
         <div className="event-head">
           <h3>{translation.title}</h3>
           <div className="event-start">{start_date}</div>

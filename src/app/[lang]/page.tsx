@@ -92,7 +92,7 @@ export default async function Home({ params }: { params: { lang: string } }) {
         ) : null}
         <span className="boxlink">
           <ForwardArrowIcon />
-          <Link href={`${lang}/events`}>See all events</Link>
+          <Link href={`/${lang}/events`}>See all events</Link>
         </span>
         <h2>{game_star_translation.about_title}</h2>
         <p>{game_star_translation.about_text}</p>

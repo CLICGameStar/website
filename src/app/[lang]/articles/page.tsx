@@ -26,7 +26,7 @@ export default async function Articles({
       {articles.map((article) => (
         <div key={article.slug}>
           <h2>
-            <Link href={`/articles/${article.slug}`}>
+            <Link href={`/${lang}/articles/${article.slug}`}>
               {getTranslation(article, lang).title}
             </Link>
           </h2>

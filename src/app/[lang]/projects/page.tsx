@@ -26,7 +26,7 @@ export default async function Projects({
       {projects.map((project) => (
         <div key={project.slug}>
           <h2>
-            <Link href={`/projects/${project.slug}`}>
+            <Link href={`/${lang}/projects/${project.slug}`}>
               {getTranslation(project, lang).title}
             </Link>
           </h2>
