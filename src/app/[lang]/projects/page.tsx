@@ -1,7 +1,7 @@
 import { directus } from "@/directus";
 import { getTranslation, queryTranslations } from "@/locales";
 import { readItems, readSingleton } from "@directus/sdk";
-import { GameStarProject } from "../../../directus-config/types/aliases";
+import { GameStarProject } from "@/types/aliases";
 import { get } from "http";
 import Link from "next/link";
 

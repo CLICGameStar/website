@@ -7,7 +7,7 @@ import {
   GameStarSocialLink,
   Member,
   SocialLink,
-} from "../../../directus-config/types/aliases";
+} from "@/types/aliases";
 import ComiteeCard from "@/components/ComiteeCard";
 import ComiteeBar from "@/components/ComiteeBar";
 import { GameStar, GameStarEvent } from "@/types/aliases";
@@ -117,7 +117,7 @@ export function getUpcomingEvents(events: GameStarEvent[]): GameStarEvent[] {
   const now = new Date();
 
   return events
-    .map((event) => ({ ...event, startDate: new Date(event.start) }))
+    .map((event) => ({ ...event, startDate: new Date(event.start!) }))
     .filter((event) => event.startDate > now)
     .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
     .slice(0, 3)

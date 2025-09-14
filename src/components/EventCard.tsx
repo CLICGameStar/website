@@ -10,7 +10,7 @@ export default function EventCard({
   lang: string;
 }) {
   const translation = getTranslation(event, lang);
-  let start_date = new Date(event.start).toLocaleDateString("fr-FR", {
+  let start_date = new Date(event.start!).toLocaleDateString("fr-FR", {
     hour: "2-digit",
     minute: "2-digit",
   });
