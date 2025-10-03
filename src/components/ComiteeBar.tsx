@@ -5,6 +5,7 @@ export default function ComiteeBar({
 }: {
   comitees: {
     name: string;
+    surname: string;
     role: string;
     link: string;
     image: string;
@@ -12,15 +13,22 @@ export default function ComiteeBar({
 }) {
   return (
     <div className="comitee-bar">
-      {comitees.map((member, i) => (
-        <ComiteeCard
-          key={i}
-          name={member.name}
-          role={member.role}
-          link={member.link}
-          image={member.image}
-        />
-      ))}
+      {comitees
+        .sort(
+          (a, b) =>
+            // by role (anti alphabetically so that Coordinator is before Committee)
+            b.role.localeCompare(a.role) || a.surname.localeCompare(b.surname),
+        )
+        .map((member, i) => (
+          <ComiteeCard
+            key={i}
+            name={member.name}
+            surname={member.surname}
+            role={member.role}
+            link={member.link}
+            image={member.image}
+          />
+        ))}
     </div>
   );
 }

@@ -2,11 +2,13 @@ import DirectusImage from "./DirectusImage";
 
 export default function ComiteeCard({
   name,
+  surname,
   role,
   link,
   image,
 }: {
   name: string;
+  surname: string;
   role: string;
   link: string;
   image: string;
@@ -26,7 +28,9 @@ export default function ComiteeCard({
           className={"comitee-card-image"}
         />
         <div>
-          <h3>{name}</h3>
+          <h3>
+            {name} {surname}
+          </h3>
           <p>{role}</p>
         </div>
       </div>

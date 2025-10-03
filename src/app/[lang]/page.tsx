@@ -103,6 +103,7 @@ export default async function Home({ params }: { params: { lang: string } }) {
           let role = getTranslation(comitee, lang).title as string;
           return {
             name: comitee.member.name as string,
+            surname: comitee.member.surname as string,
             role: role,
             link: comitee.member.link as string,
             image: comitee.member.picture as string,
