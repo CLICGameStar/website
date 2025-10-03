@@ -14,10 +14,17 @@ export default function ComiteeBar({
   return (
     <div className="comitee-bar">
       {comitees
-        .sort(
-          (a, b) =>
-            // by role (anti alphabetically so that Coordinator is before Committee)
-            b.role.localeCompare(a.role) || a.surname.localeCompare(b.surname),
+        .sort((a, b) =>
+          // Sort first coordinator, then treasurer, then alphabetically by role
+          a.role === "Coordinator"
+            ? -1
+            : b.role === "Coordinator"
+              ? 1
+              : a.role === "Treasurer"
+                ? -1
+                : b.role === "Treasurer"
+                  ? 1
+                  : a.role.localeCompare(b.role),
         )
         .map((member, i) => (
           <ComiteeCard
