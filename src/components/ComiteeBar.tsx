@@ -15,7 +15,7 @@ export default function ComiteeBar({
     <div className="comitee-bar">
       {comitees
         .sort((a, b) =>
-          // Sort first coordinator, then treasurer, then alphabetically by role
+          // Sort first coordinator, then the treasurer, then alphabetically by role
           a.role === "Coordinator"
             ? -1
             : b.role === "Coordinator"
