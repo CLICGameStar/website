@@ -1,5 +1,7 @@
 import config from "@/../next.config";
 import React, { useContext } from "react";
+import { directus } from "./directus";
+import { readTranslations } from "@directus/sdk";
 
 export type Locale = string;
 
@@ -10,13 +12,20 @@ export function locale(locale?: string | { locale?: string }) {
   );
 }
 
-export type TranslationTable = { [lang: string]: { [key: string]: string } };
+export async function useTranslationTable(lang: string) {
+  const tables = (await directus().request(readTranslations({}))).reduce<{
+    [lang: string]: { [key: string]: string };
+  }>((res, val) => {
+    if (val.language in res) {
+      res[val.language][val.key] = val.value;
+    } else {
+      res[val.language] = { [val.key]: val.value };
+    }
+    return res;
+  }, {});
 
-export const TranslationTableContext = React.createContext(
-  {} as { [key: string]: string },
-);
-
-export const useTranslationTable = () => useContext(TranslationTableContext);
+  return tables[lang] || {};
+}
 
 export function capitalize(val?: string) {
   return val && val.length > 0

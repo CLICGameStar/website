@@ -13,7 +13,7 @@ import EventCard from "@/components/EventCard";
 
 export default async function Events({ params }: { params: { lang: string } }) {
   const { lang } = await params;
-  const tt = useTranslationTable();
+  const tt = await useTranslationTable(lang);
 
   let events = (await directus().request(
     //@ts-ignore

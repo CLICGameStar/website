@@ -16,7 +16,7 @@ export default async function Projects({
   params: { lang: string };
 }) {
   const { lang } = await params;
-  const tt = useTranslationTable();
+  const tt = await useTranslationTable(lang);
 
   let projects = (await directus().request(
     //@ts-ignore

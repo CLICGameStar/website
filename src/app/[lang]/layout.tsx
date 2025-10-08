@@ -3,7 +3,7 @@ import Navigation from "@/components/Navigation";
 import { directus } from "@/directus";
 import { capitalize, useTranslationTable } from "@/locales";
 import "@/styles/style.scss";
-import { readItems } from "@directus/sdk";
+import { readItems, readTranslations } from "@directus/sdk";
 import { use } from "react";
 
 export const metadata = {
@@ -19,7 +19,8 @@ export default async function RootLayout({
   params: { lang: string };
 }) {
   const { lang } = await params;
-  const tt = useTranslationTable();
+  const tt = await useTranslationTable(lang);
+
   const social_links: { social_type: string; social_link: string }[] =
     (await directus().request(
       // fetch social links from directus

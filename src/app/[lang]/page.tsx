@@ -23,7 +23,7 @@ import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
 
 export default async function Home({ params }: { params: { lang: string } }) {
   const { lang } = await params;
-  const tt = useTranslationTable();
+  const tt = await useTranslationTable(lang);
 
   let commissions = await directus().request(
     //@ts-ignore
