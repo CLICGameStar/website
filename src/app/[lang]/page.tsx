@@ -72,9 +72,12 @@ export default async function Home({ params }: { params: { lang: string } }) {
     <>
       <div className="hero">
         <picture>
-          <source srcSet="/hero-mobile.svg" media="(max-width: 768px)" />
+          <source
+            srcSet={`/hero-mobile-${lang}.svg`}
+            media="(max-width: 768px)"
+          />
           <Image
-            src="/hero.svg"
+            src={`/hero-${lang}.svg`}
             alt="Hero image"
             width={1920}
             height={1080}
