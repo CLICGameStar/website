@@ -13,7 +13,7 @@ export async function middleware(request: any) {
   }
 
   // Redirect if there is no locale
-  let newPath = `/en${pathname}`;
+  let newPath = `/fr${pathname}`;
   return NextResponse.rewrite(new URL(newPath, request.url));
 }
 
