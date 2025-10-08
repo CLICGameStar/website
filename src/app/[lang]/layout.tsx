@@ -34,7 +34,7 @@ export default async function RootLayout({
       <body>
         <Navigation
           navLinks={[
-            { name: capitalize(tt["home"]) + "s", href: "/" },
+            { name: capitalize(tt["home"]), href: "/" },
             { name: capitalize(tt["event"]) + "s", href: "/events" },
             { name: capitalize(tt["project"]) + "s", href: "/projects" },
             { name: capitalize(tt["article"]) + "s", href: "/articles" },
