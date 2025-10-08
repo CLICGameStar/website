@@ -12,6 +12,10 @@ export function locale(locale?: string | { locale?: string }) {
   );
 }
 
+function fullLang(lang: string) {
+  return lang === "fr" ? "fr-FR" : lang === "en" ? "en-US" : lang;
+}
+
 export async function useTranslationTable(lang: string) {
   const tables = (await directus().request(readTranslations({}))).reduce<{
     [lang: string]: { [key: string]: string };
@@ -24,7 +28,7 @@ export async function useTranslationTable(lang: string) {
     return res;
   }, {});
 
-  return tables[lang] || {};
+  return tables[fullLang(lang)] || {};
 }
 
 export function capitalize(val?: string) {
