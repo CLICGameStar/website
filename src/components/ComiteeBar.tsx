@@ -15,14 +15,15 @@ export default function ComiteeBar({
     <div className="comitee-bar">
       {comitees
         .sort((a, b) =>
-          // Sort first coordinator, then the treasurer, then alphabetically by role
-          a.role === "Coordinator"
+          // Sort with Coordinator > Treasurer > others
+          // Use startsWith so it works in French too (Coordinateur, Trésorier)
+          a.role.startsWith("Coord") // Coordinator
             ? -1
-            : b.role === "Coordinator"
+            : b.role.startsWith("Coord") // Coordinator
               ? 1
-              : a.role === "Treasurer"
+              : a.role.startsWith("Tr") // Treasurer
                 ? -1
-                : b.role === "Treasurer"
+                : b.role.startsWith("Tr") // Treasurer
                   ? 1
                   : a.role.localeCompare(b.role),
         )
