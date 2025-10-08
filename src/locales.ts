@@ -10,6 +10,20 @@ export function locale(locale?: string | { locale?: string }) {
   );
 }
 
+export type TranslationTable = { [lang: string]: { [key: string]: string } };
+
+export const TranslationTableContext = React.createContext(
+  {} as { [key: string]: string },
+);
+
+export const useTranslationTable = () => useContext(TranslationTableContext);
+
+export function capitalize(val?: string) {
+  return val && val.length > 0
+    ? (val.at(0) as string).toUpperCase() + val.slice(1)
+    : "";
+}
+
 /**
  * Extracts the translation from an object queried from the Directus instance.
  * If the locale given as parameter could not be found in the object, it will default to the `en` locale.

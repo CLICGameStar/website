@@ -1,5 +1,10 @@
 import { directus } from "@/directus";
-import { getTranslation, queryTranslations } from "@/locales";
+import {
+  capitalize,
+  getTranslation,
+  queryTranslations,
+  useTranslationTable,
+} from "@/locales";
 import { readItems, readSingleton } from "@directus/sdk";
 import { GameStarArticle } from "@/types/aliases";
 import { get } from "http";
@@ -11,6 +16,7 @@ export default async function Articles({
   params: { lang: string };
 }) {
   const { lang } = await params;
+  const tt = useTranslationTable();
 
   let articles = (await directus().request(
     //@ts-ignore
@@ -22,7 +28,7 @@ export default async function Articles({
 
   return (
     <div className="content">
-      <h1>Articles</h1>
+      <h1>{capitalize(tt["article"])}s</h1>
       {articles.map((article) => (
         <div key={article.slug}>
           <h2>
@@ -33,7 +39,7 @@ export default async function Articles({
           <p>{getTranslation(article, lang).description}</p>
         </div>
       ))}
-      {articles.length === 0 ? <p>Coming soon !</p> : null}
+      {articles.length === 0 ? <p>{tt["gamestar.comingSoon"]} !</p> : null}
     </div>
   );
 }

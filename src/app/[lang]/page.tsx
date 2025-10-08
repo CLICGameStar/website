@@ -1,6 +1,11 @@
 import { directus } from "@/directus";
 import { readItem, readItems, readSingleton } from "@directus/sdk";
-import { getTranslation, queryTranslations } from "@/locales";
+import {
+  capitalize,
+  getTranslation,
+  queryTranslations,
+  useTranslationTable,
+} from "@/locales";
 import DirectusImage from "@/components/DirectusImage";
 import {
   AssociationMembership,
@@ -18,6 +23,7 @@ import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
 
 export default async function Home({ params }: { params: { lang: string } }) {
   const { lang } = await params;
+  const tt = useTranslationTable();
 
   let commissions = await directus().request(
     //@ts-ignore
@@ -81,22 +87,22 @@ export default async function Home({ params }: { params: { lang: string } }) {
         </picture>
       </div>
       <div className="content">
-        <h2>Upcoming events</h2>
+        <h2>{tt["gamestar.upcomingEvents"]}</h2>
         <div className="events-grid">
           {upcomingEvents.map((event) => (
             <EventCard key={event.slug} event={event} lang={lang} />
           ))}
         </div>
         {upcomingEvents.length === 0 ? (
-          <p>No upcoming events at the moment. Please check back later!</p>
+          <p>{tt["gamestar.comingSoon"]} !</p>
         ) : null}
         <span className="boxlink">
           <ForwardArrowIcon />
-          <Link href={`/${lang}/events`}>See all events</Link>
+          <Link href={`/${lang}/events`}>{tt["gamestar.seeAllEvents"]}</Link>
         </span>
         <h2>{game_star_translation.about_title}</h2>
         <p>{game_star_translation.about_text}</p>
-        <h2>Committee</h2>
+        <h2>{capitalize(tt["committee"])}</h2>
       </div>
       <ComiteeBar
         comitees={comitees.map((comitee) => {

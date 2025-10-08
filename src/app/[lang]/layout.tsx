@@ -1,8 +1,10 @@
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { directus } from "@/directus";
+import { capitalize, useTranslationTable } from "@/locales";
 import "@/styles/style.scss";
 import { readItems } from "@directus/sdk";
+import { use } from "react";
 
 export const metadata = {
   title: "Game*",
@@ -17,6 +19,7 @@ export default async function RootLayout({
   params: { lang: string };
 }) {
   const { lang } = await params;
+  const tt = useTranslationTable();
   const social_links: { social_type: string; social_link: string }[] =
     (await directus().request(
       // fetch social links from directus
@@ -30,10 +33,10 @@ export default async function RootLayout({
       <body>
         <Navigation
           navLinks={[
-            { name: "Home", href: "/" },
-            { name: "Events", href: "/events" },
-            { name: "Projects", href: "/projects" },
-            { name: "Articles", href: "/articles" },
+            { name: capitalize(tt["home"]) + "s", href: "/" },
+            { name: capitalize(tt["event"]) + "s", href: "/events" },
+            { name: capitalize(tt["project"]) + "s", href: "/projects" },
+            { name: capitalize(tt["article"]) + "s", href: "/articles" },
           ]}
         />
         <main>{children}</main>
