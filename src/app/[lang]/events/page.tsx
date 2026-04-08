@@ -26,7 +26,7 @@ export default async function Events({ params }: { params: { lang: string } }) {
   return (
     <div className="content">
       <h1>{capitalize(tt["event"])}s</h1>
-      <div className="events-list">
+      <div className="cards-list">
         {events.map((event) => (
           <EventCard key={event.slug} event={event} lang={lang} />
         ))}

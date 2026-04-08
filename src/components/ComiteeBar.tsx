@@ -22,14 +22,14 @@ export default function ComiteeBar({
             : b.role.startsWith("Dic") // Dictator
               ? 1
               : a.role.startsWith("Coord") // Coordinator
-                  ? -1
-                  : b.role.startsWith("Coord") // Coordinator
-                    ? 1
-                    : a.role.startsWith("Tr") // Treasurer
-                      ? -1
-                      : b.role.startsWith("Tr") // Treasurer
-                        ? 1
-                        : a.role.localeCompare(b.role),
+                ? -1
+                : b.role.startsWith("Coord") // Coordinator
+                  ? 1
+                  : a.role.startsWith("Tr") // Treasurer
+                    ? -1
+                    : b.role.startsWith("Tr") // Treasurer
+                      ? 1
+                      : a.role.localeCompare(b.role),
         )
         .map((member, i) => (
           <ComiteeCard

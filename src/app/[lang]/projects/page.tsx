@@ -1,14 +1,12 @@
 import { directus } from "@/directus";
 import {
   capitalize,
-  getTranslation,
   queryTranslations,
   useTranslationTable,
 } from "@/locales";
-import { readItems, readSingleton } from "@directus/sdk";
+import { readItems } from "@directus/sdk";
 import { GameStarProject } from "@/types/aliases";
-import { get } from "http";
-import Link from "next/link";
+import ProjectCard from "@/components/ProjectCard";
 
 export default async function Projects({
   params,
@@ -29,16 +27,11 @@ export default async function Projects({
   return (
     <div className="content">
       <h1>{capitalize(tt["project"])}s</h1>
-      {projects.map((project) => (
-        <div key={project.slug}>
-          <h2>
-            <Link href={`/${lang}/projects/${project.slug}`}>
-              {getTranslation(project, lang).title}
-            </Link>
-          </h2>
-          <p>{getTranslation(project, lang).description}</p>
-        </div>
-      ))}
+      <div className="cards-list">
+              {projects.map((project) => (
+                <ProjectCard key={project.slug} project={project} lang={lang} />
+              ))}
+            </div>
       {projects.length === 0 ? <p>{tt["gamestar.comingSoon"]} !</p> : null}
     </div>
   );
