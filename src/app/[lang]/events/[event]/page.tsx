@@ -8,13 +8,13 @@ import Markdown from "react-markdown";
 export default async function Event({
   params,
 }: {
-  params: { event: string; lang: string };
+  params: Promise<{ event: string; lang: string }>;
 }) {
-  const { lang } = await params;
+  const { event: event_slug, lang } = await params;
   const events = (await directus().request(
     //@ts-ignore
     readItems("game_star_events", {
-      filter: { status: { _eq: "published" }, slug: { _eq: params.event } },
+      filter: { status: { _eq: "published" }, slug: { _eq: event_slug } },
       limit: 1,
       ...queryTranslations,
     }),

@@ -13,15 +13,15 @@ import Markdown from "react-markdown";
 export default async function Article({
   params,
 }: {
-  params: { article: string; lang: string };
+  params: Promise<{ article: string; lang: string }>;
 }) {
-  const { lang } = await params;
+  const { article: article_slug, lang } = await params;
   const tt = await useTranslationTable(lang);
   const articles = (await directus().request(
     //@ts-ignore
     readItems("game_star_articles", {
       fields: ["*", { translations: ["*"], authors: [{ members_id: ["*"] }] }],
-      filter: { status: { _eq: "published" }, slug: { _eq: params.article } },
+      filter: { status: { _eq: "published" }, slug: { _eq: article_slug } },
       limit: 1,
     }),
   )) as GameStarArticle[];

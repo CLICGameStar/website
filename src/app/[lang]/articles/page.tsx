@@ -1,20 +1,13 @@
 import { directus } from "@/directus";
-import {
-  capitalize,
-  getTranslation,
-  queryTranslations,
-  useTranslationTable,
-} from "@/locales";
-import { readItems, readSingleton } from "@directus/sdk";
+import { capitalize, useTranslationTable } from "@/locales";
+import { readItems } from "@directus/sdk";
 import { GameStarArticle } from "@/types/aliases";
-import { get } from "http";
-import Link from "next/link";
 import ArticleCard from "@/components/ArticleCard";
 
 export default async function Articles({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
   const tt = await useTranslationTable(lang);

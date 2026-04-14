@@ -1,5 +1,11 @@
-import { Schema, components } from "./types/schema";
-import { createDirectus, rest, staticToken } from "@directus/sdk";
+import { components, Schema } from "@/types/schema.js";
+import {
+  createDirectus,
+  DirectusClient,
+  rest,
+  RestClient,
+  staticToken,
+} from "@directus/sdk";
 
 // URL to access Directus from server side. Used to query the Directus instance (also see `directus()` below).
 export const INTERNAL_DIRECTUS_URL = process.env.DIRECTUS_URL as string;

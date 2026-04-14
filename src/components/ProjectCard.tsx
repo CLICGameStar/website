@@ -1,7 +1,5 @@
 import { getTranslation, useTranslationTable } from "@/locales";
-import {
-  GameStarProject,
-} from "@/types/aliases";
+import { GameStarProject } from "@/types/aliases";
 import Link from "next/link";
 
 export default async function ProjectCard({

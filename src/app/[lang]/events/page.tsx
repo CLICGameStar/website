@@ -11,7 +11,11 @@ import { get } from "http";
 import Link from "next/link";
 import EventCard from "@/components/EventCard";
 
-export default async function Events({ params }: { params: { lang: string } }) {
+export default async function Events({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
   const tt = await useTranslationTable(lang);
 

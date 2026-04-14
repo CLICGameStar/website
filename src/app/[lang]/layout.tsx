@@ -3,8 +3,7 @@ import Navigation from "@/components/Navigation";
 import { directus } from "@/directus";
 import { capitalize, useTranslationTable } from "@/locales";
 import "@/styles/style.scss";
-import { readItems, readTranslations } from "@directus/sdk";
-import { use } from "react";
+import { readItems } from "@directus/sdk";
 
 export const metadata = {
   title: "Game*",
@@ -16,7 +15,7 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
   const tt = await useTranslationTable(lang);
