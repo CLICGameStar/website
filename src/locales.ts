@@ -1,4 +1,5 @@
 import config from "@/../next.config";
+import React, { useContext } from "react";
 import { directus } from "./directus";
 import { readTranslations } from "@directus/sdk";
 
@@ -16,9 +17,7 @@ function fullLang(lang: string) {
 }
 
 export async function useTranslationTable(lang: string) {
-  const tables = (
-    await directus().request(readTranslations({ limit: -1 }))
-  ).reduce<{
+  const tables = (await directus().request(readTranslations({}))).reduce<{
     [lang: string]: { [key: string]: string };
   }>((res, val) => {
     if (val.language in res) {
@@ -100,6 +99,8 @@ export function getTranslation<
  *
  * /!\ Do not use when `fields` is set to a custom value /!\
  */
-export const queryTranslations = {
+export const queryTranslations: {
+  fields: ("*" | { translations: "*"[] })[];
+} = {
   fields: ["*", { translations: ["*"] }],
 };

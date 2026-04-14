@@ -12,7 +12,6 @@ export default async function Project({
 }) {
   const { project: project_slug, lang } = await params;
   const projects = (await directus().request(
-    //@ts-ignore
     readItems("game_star_projects", {
       filter: { status: { _eq: "published" }, slug: { _eq: project_slug } },
       limit: 1,

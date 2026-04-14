@@ -15,9 +15,9 @@ export default function EventCard({
     minute: "2-digit",
   });
   return (
-    <div key={event.slug} className="card">
+    <div key={event.slug} className="event-card">
       <Link href={`/${lang}/events/${event.slug}`}>
-        <div className="card-head">
+        <div className="event-head">
           <h3>{translation.title}</h3>
           <div className="event-start">{start_date}</div>
         </div>

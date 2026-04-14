@@ -12,7 +12,6 @@ export default async function Event({
 }) {
   const { event: event_slug, lang } = await params;
   const events = (await directus().request(
-    //@ts-ignore
     readItems("game_star_events", {
       filter: { status: { _eq: "published" }, slug: { _eq: event_slug } },
       limit: 1,

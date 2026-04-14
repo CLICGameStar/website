@@ -1,9 +1,9 @@
-.card {
+.event-card {
   padding: 1em;
   border: 3px solid #000000;
   border-radius: 10px;
 
-  .card-head {
+  .event-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,19 +22,15 @@
   .event-start {
     font-weight: bold;
   }
-
-  .authors {
-    font-weight: bold;
-  }
 }
 
-.cards-grid {
+.events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: 1em;
 }
 
-.cards-list {
+.events-list {
   display: flex;
   flex-direction: column;
   gap: 1em;

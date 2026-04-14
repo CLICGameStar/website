@@ -1,14 +1,7 @@
 import { directus } from "@/directus";
-import {
-  capitalize,
-  getTranslation,
-  queryTranslations,
-  useTranslationTable,
-} from "@/locales";
-import { readItems, readSingleton } from "@directus/sdk";
+import { capitalize, queryTranslations, useTranslationTable } from "@/locales";
+import { readItems } from "@directus/sdk";
 import { GameStarEvent } from "@/types/aliases";
-import { get } from "http";
-import Link from "next/link";
 import EventCard from "@/components/EventCard";
 
 export default async function Events({
@@ -20,7 +13,6 @@ export default async function Events({
   const tt = await useTranslationTable(lang);
 
   let events = (await directus().request(
-    //@ts-ignore
     readItems("game_star_events", {
       filter: { status: { _eq: "published" } },
       ...queryTranslations,
@@ -30,7 +22,7 @@ export default async function Events({
   return (
     <div className="content">
       <h1>{capitalize(tt["event"])}s</h1>
-      <div className="cards-list">
+      <div className="events-list">
         {events.map((event) => (
           <EventCard key={event.slug} event={event} lang={lang} />
         ))}
