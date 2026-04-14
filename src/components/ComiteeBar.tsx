@@ -15,17 +15,21 @@ export default function ComiteeBar({
     <div className="comitee-bar">
       {comitees
         .sort((a, b) =>
-          // Sort with Coordinator > Treasurer > others
-          // Use startsWith so it works in French too (Coordinateur, Trésorier)
-          a.role.startsWith("Coord") // Coordinator
+          // Sort with Dictator > Coordinator > Treasurer > others
+          // Use startsWith so it works in French too (Dictateur, Coordinateur, Trésorier)
+          a.role.startsWith("Dic") // Dictator
             ? -1
-            : b.role.startsWith("Coord") // Coordinator
+            : b.role.startsWith("Dic") // Dictator
               ? 1
-              : a.role.startsWith("Tr") // Treasurer
+              : a.role.startsWith("Coord") // Coordinator
                 ? -1
-                : b.role.startsWith("Tr") // Treasurer
+                : b.role.startsWith("Coord") // Coordinator
                   ? 1
-                  : a.role.localeCompare(b.role),
+                  : a.role.startsWith("Tr") // Treasurer
+                    ? -1
+                    : b.role.startsWith("Tr") // Treasurer
+                      ? 1
+                      : a.role.localeCompare(b.role),
         )
         .map((member, i) => (
           <ComiteeCard

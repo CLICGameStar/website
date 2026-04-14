@@ -21,7 +21,11 @@ import EventCard from "@/components/EventCard";
 import Link from "next/link";
 import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
 
-export default async function Home({ params }: { params: { lang: string } }) {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
   const tt = await useTranslationTable(lang);
 
@@ -123,7 +127,7 @@ export default async function Home({ params }: { params: { lang: string } }) {
   );
 }
 
-export function getUpcomingEvents(events: GameStarEvent[]): GameStarEvent[] {
+function getUpcomingEvents(events: GameStarEvent[]): GameStarEvent[] {
   const now = new Date();
 
   return events

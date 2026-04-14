@@ -8,13 +8,12 @@ import Markdown from "react-markdown";
 export default async function Article({
   params,
 }: {
-  params: { article: string; lang: string };
+  params: Promise<{ article: string; lang: string }>;
 }) {
-  const { lang } = await params;
+  const { article: article_slug, lang } = await params;
   const articles = (await directus().request(
-    //@ts-ignore
     readItems("game_star_articles", {
-      filter: { status: { _eq: "published" }, slug: { _eq: params.article } },
+      filter: { status: { _eq: "published" }, slug: { _eq: article_slug } },
       limit: 1,
       ...queryTranslations,
     }),

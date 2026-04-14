@@ -5,21 +5,19 @@ import {
   queryTranslations,
   useTranslationTable,
 } from "@/locales";
-import { readItems, readSingleton } from "@directus/sdk";
+import { readItems } from "@directus/sdk";
 import { GameStarArticle } from "@/types/aliases";
-import { get } from "http";
 import Link from "next/link";
 
 export default async function Articles({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
   const tt = await useTranslationTable(lang);
 
   let articles = (await directus().request(
-    //@ts-ignore
     readItems("game_star_articles", {
       filter: { status: { _eq: "published" } },
       ...queryTranslations,

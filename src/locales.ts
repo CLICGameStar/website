@@ -99,6 +99,8 @@ export function getTranslation<
  *
  * /!\ Do not use when `fields` is set to a custom value /!\
  */
-export const queryTranslations = {
+export const queryTranslations: {
+  fields: ("*" | { translations: "*"[] })[];
+} = {
   fields: ["*", { translations: ["*"] }],
 };

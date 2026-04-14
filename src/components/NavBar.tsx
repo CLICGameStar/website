@@ -27,9 +27,7 @@ export default function NavBar({
         <ul>
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} onClick={toggleMenu}>
-                {link.name}
-              </Link>
+              <Link href={link.href}>{link.name}</Link>
             </li>
           ))}
           <li>{languageDropdown}</li>
