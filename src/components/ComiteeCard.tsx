@@ -26,6 +26,7 @@ export default function ComiteeCard({
           img={image}
           name={name}
           className={"comitee-card-image"}
+          sizes="512px"
         />
         <div>
           <h3>

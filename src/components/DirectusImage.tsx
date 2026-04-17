@@ -8,11 +8,12 @@ const imageLoader: ImageLoader = ({ src, width, quality }) => {
 
 export function directusImageUrl(
   img: string | components["schemas"]["Files"] | null,
+  width: number,
 ) {
   return img
     ? imageLoader({
         src: typeof img === "string" ? img : img.filename_disk || "",
-        width: 1920,
+        width,
       })
     : "";
 }
@@ -35,10 +36,18 @@ export default function DirectusImage({
   sizes?: string;
 }) {
   if (img) {
+    let width = (typeof img === "object" ? img.width : null) || 1920;
+    const px_re = /^(\d+)px$/;
+    const match = sizes?.match(px_re);
+    console.log(match);
+    if (match) {
+      width = parseInt(match[1]);
+    }
+
     return (
       <div className={className} style={{ position: "relative" }}>
         <img
-          src={directusImageUrl(img)}
+          src={directusImageUrl(img, width)}
           style={{ objectFit: cover ? "cover" : "contain" }}
           alt={name || "image"}
           sizes={sizes}
