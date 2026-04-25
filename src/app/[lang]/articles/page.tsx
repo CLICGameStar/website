@@ -1,13 +1,8 @@
 import { directus } from "@/directus";
-import {
-  capitalize,
-  getTranslation,
-  queryTranslations,
-  useTranslationTable,
-} from "@/locales";
+import { capitalize, useTranslationTable } from "@/locales";
 import { readItems } from "@directus/sdk";
 import { GameStarArticle } from "@/types/aliases";
-import Link from "next/link";
+import ArticleCard from "@/components/ArticleCard";
 
 export default async function Articles({
   params,
@@ -20,23 +15,18 @@ export default async function Articles({
   let articles = (await directus().request(
     readItems("game_star_articles", {
       filter: { status: { _eq: "published" } },
-      ...queryTranslations,
+      fields: ["*", { translations: ["*"], authors: [{ members_id: ["*"] }] }],
     }),
   )) as GameStarArticle[];
 
   return (
     <div className="content">
       <h1>{capitalize(tt["article"])}s</h1>
-      {articles.map((article) => (
-        <div key={article.slug}>
-          <h2>
-            <Link href={`/${lang}/articles/${article.slug}`}>
-              {getTranslation(article, lang).title}
-            </Link>
-          </h2>
-          <p>{getTranslation(article, lang).description}</p>
-        </div>
-      ))}
+      <div className="cards-list">
+        {articles.map((article) => (
+          <ArticleCard key={article.slug} article={article} lang={lang} />
+        ))}
+      </div>
       {articles.length === 0 ? <p>{tt["gamestar.comingSoon"]} !</p> : null}
     </div>
   );
