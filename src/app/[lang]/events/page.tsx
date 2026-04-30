@@ -13,6 +13,7 @@ export default async function Events({
   const tt = await useTranslationTable(lang);
 
   let events = (await directus().request(
+    //@ts-ignore
     readItems("game_star_events", {
       filter: { status: { _eq: "published" } },
       ...queryTranslations,
@@ -22,7 +23,7 @@ export default async function Events({
   return (
     <div className="content">
       <h1>{capitalize(tt["event"])}s</h1>
-      <div className="events-list">
+      <div className="cards-list">
         {events.map((event) => (
           <EventCard key={event.slug} event={event} lang={lang} />
         ))}

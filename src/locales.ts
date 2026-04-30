@@ -17,7 +17,9 @@ function fullLang(lang: string) {
 }
 
 export async function useTranslationTable(lang: string) {
-  const tables = (await directus().request(readTranslations({}))).reduce<{
+  const tables = (
+    await directus().request(readTranslations({ limit: -1 }))
+  ).reduce<{
     [lang: string]: { [key: string]: string };
   }>((res, val) => {
     if (val.language in res) {
@@ -99,8 +101,6 @@ export function getTranslation<
  *
  * /!\ Do not use when `fields` is set to a custom value /!\
  */
-export const queryTranslations: {
-  fields: ("*" | { translations: "*"[] })[];
-} = {
+export const queryTranslations = {
   fields: ["*", { translations: ["*"] }],
 };
