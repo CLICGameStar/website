@@ -23,7 +23,7 @@ export default async function Articles({
     <div className="content">
       <h1>{capitalize(tt["article"])}s</h1>
       <div className="cards-list">
-        {articles.map((article) => (
+        {articles.reverse().map((article) => (
           <ArticleCard key={article.slug} article={article} lang={lang} />
         ))}
       </div>

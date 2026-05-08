@@ -1,19 +1,15 @@
 import { directus } from "@/directus";
-import { readItem, readItems, readSingleton } from "@directus/sdk";
+import { readItems, readSingleton } from "@directus/sdk";
 import {
   capitalize,
   getTranslation,
   queryTranslations,
   useTranslationTable,
 } from "@/locales";
-import DirectusImage from "@/components/DirectusImage";
 import {
   AssociationMembership,
-  GameStarSocialLink,
   Member,
-  SocialLink,
 } from "@/types/aliases";
-import ComiteeCard from "@/components/ComiteeCard";
 import ComiteeBar from "@/components/ComiteeBar";
 import { GameStar, GameStarEvent } from "@/types/aliases";
 import Image from "next/image";
@@ -95,7 +91,7 @@ export default async function Home({
       </div>
       <div className="content">
         <h2>{tt["gamestar.upcomingEvents"]}</h2>
-        <div className="events-grid">
+        <div className="cards-grid">
           {upcomingEvents.map((event) => (
             <EventCard key={event.slug} event={event} lang={lang} />
           ))}
@@ -131,9 +127,9 @@ function getUpcomingEvents(events: GameStarEvent[]): GameStarEvent[] {
   const now = new Date();
 
   return events
-    .map((event) => ({ ...event, startDate: new Date(event.start!) }))
-    .filter((event) => event.startDate > now)
-    .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
+    .map((event) => ({ ...event, endDate: new Date(event.end!) }))
+    .filter((event) => event.endDate > now)
+    .sort((a, b) => a.endDate.getTime() - b.endDate.getTime())
     .slice(0, 3)
-    .map(({ startDate, ...event }) => event);
+    .map(({ endDate, ...event }) => event);
 }

@@ -4,10 +4,11 @@ import { directus } from "@/directus";
 import { capitalize, useTranslationTable } from "@/locales";
 import "@/styles/style.scss";
 import { readItems } from "@directus/sdk";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Game*",
-  description: "Game* is a student association at EPFL",
+  description: "Game* is a student commission of the CLIC association at EPFL.",
 };
 
 export default async function RootLayout({
