@@ -6,16 +6,33 @@ import {
   queryTranslations,
   useTranslationTable,
 } from "@/locales";
-import {
-  AssociationMembership,
-  Member,
-} from "@/types/aliases";
+import { AssociationMembership, Member } from "@/types/aliases";
 import ComiteeBar from "@/components/ComiteeBar";
 import { GameStar, GameStarEvent } from "@/types/aliases";
 import Image from "next/image";
 import EventCard from "@/components/EventCard";
 import Link from "next/link";
 import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+
+  const game_star = (await directus().request(
+    readSingleton("game_star", {
+      ...queryTranslations,
+    }),
+  )) as GameStar;
+  const game_star_translation = getTranslation(game_star, lang);
+
+  return {
+    title: "Game*",
+    description: game_star_translation.about_text,
+  };
+}
 
 export default async function Home({
   params,
@@ -26,7 +43,6 @@ export default async function Home({
   const tt = await useTranslationTable(lang);
 
   let commissions = await directus().request(
-    //@ts-ignore
     readItems("commissions", {
       filter: { slug: { _eq: "game-star" } },
       ...queryTranslations,
@@ -36,12 +52,7 @@ export default async function Home({
 
   let comitees = (await directus().request(
     readItems("commission_memberships", {
-      fields: [
-        "*",
-        { member: ["*"] },
-        //@ts-ignore
-        { translations: ["*"] },
-      ],
+      fields: ["*", { member: ["*"] }, { translations: ["*"] }],
       filter: {
         level: { _eq: "committee" },
         commission: { _eq: commission.id },
@@ -50,7 +61,6 @@ export default async function Home({
   )) as (AssociationMembership & { member: Member })[];
 
   const game_star = (await directus().request(
-    //@ts-ignore
     readSingleton("game_star", {
       ...queryTranslations,
     }),
@@ -59,7 +69,6 @@ export default async function Home({
   const game_star_translation = getTranslation(game_star, lang);
 
   let events = (await directus().request(
-    //@ts-ignore
     readItems("game_star_events", {
       filter: { status: { _eq: "published" } },
       ...queryTranslations,
@@ -103,7 +112,7 @@ export default async function Home({
           <ForwardArrowIcon />
           <Link href={`/${lang}/events`}>{tt["gamestar.seeAllEvents"]}</Link>
         </span>
-        <h2>{game_star_translation.about_title}</h2>
+        <h2>{capitalize(tt["about"])} de Game*</h2>
         <p>{game_star_translation.about_text}</p>
         <h2>{capitalize(tt["committee"])}</h2>
       </div>

@@ -5,14 +5,8 @@ import { readItems } from "@directus/sdk";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 
-export default async function Event({
-  params,
-}: {
-  params: Promise<{ event: string; lang: string }>;
-}) {
-  const { event: event_slug, lang } = await params;
+async function getEvent(event_slug: string): Promise<GameStarEvent> {
   const events = (await directus().request(
-    //@ts-ignore
     readItems("game_star_events", {
       filter: { status: { _eq: "published" }, slug: { _eq: event_slug } },
       limit: 1,
@@ -26,7 +20,31 @@ export default async function Event({
     notFound();
   }
 
-  const translation = getTranslation(event, lang);
+  return event;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ event: string; lang: string }>;
+}) {
+  const { event: event_slug, lang } = await params;
+
+  const translation = getTranslation(await getEvent(event_slug), lang);
+
+  return {
+    title: translation.title,
+    description: translation.description,
+  };
+}
+
+export default async function Event({
+  params,
+}: {
+  params: Promise<{ event: string; lang: string }>;
+}) {
+  const { event: event_slug, lang } = await params;
+  const translation = getTranslation(await getEvent(event_slug), lang);
 
   return (
     <div className="article">

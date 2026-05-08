@@ -5,12 +5,7 @@ import { readItems } from "@directus/sdk";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 
-export default async function Project({
-  params,
-}: {
-  params: Promise<{ project: string; lang: string }>;
-}) {
-  const { project: project_slug, lang } = await params;
+async function getProject(project_slug: string): Promise<GameStarProject> {
   const projects = (await directus().request(
     readItems("game_star_projects", {
       filter: { status: { _eq: "published" }, slug: { _eq: project_slug } },
@@ -25,7 +20,31 @@ export default async function Project({
     notFound();
   }
 
-  const translation = getTranslation(project, lang);
+  return project;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ project: string; lang: string }>;
+}) {
+  const { project: project_slug, lang } = await params;
+
+  const translation = getTranslation(await getProject(project_slug), lang);
+
+  return {
+    title: translation.title,
+    description: translation.description,
+  };
+}
+
+export default async function Project({
+  params,
+}: {
+  params: Promise<{ project: string; lang: string }>;
+}) {
+  const { project: project_slug, lang } = await params;
+  const translation = getTranslation(await getProject(project_slug), lang);
 
   return (
     <div className="article">
