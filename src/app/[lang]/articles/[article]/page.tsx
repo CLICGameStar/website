@@ -10,13 +10,7 @@ import { readItems } from "@directus/sdk";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 
-export default async function Article({
-  params,
-}: {
-  params: Promise<{ article: string; lang: string }>;
-}) {
-  const { article: article_slug, lang } = await params;
-  const tt = await useTranslationTable(lang);
+async function getArticle(article_slug: string): Promise<GameStarArticle> {
   const articles = (await directus().request(
     readItems("game_star_articles", {
       fields: ["*", { translations: ["*"], authors: [{ members_id: ["*"] }] }],
@@ -31,6 +25,32 @@ export default async function Article({
     notFound();
   }
 
+  return article;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ article: string; lang: string }>;
+}) {
+  const { article: article_slug, lang } = await params;
+
+  const translation = getTranslation(await getArticle(article_slug), lang);
+
+  return {
+    title: translation.title,
+    description: translation.description,
+  };
+}
+
+export default async function Article({
+  params,
+}: {
+  params: Promise<{ article: string; lang: string }>;
+}) {
+  const { article: article_slug, lang } = await params;
+  const tt = await useTranslationTable(lang);
+  const article = await getArticle(article_slug);
   const translation = getTranslation(article, lang);
 
   return (

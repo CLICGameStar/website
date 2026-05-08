@@ -13,7 +13,6 @@ export default async function Projects({
   const tt = await useTranslationTable(lang);
 
   let projects = (await directus().request(
-    //@ts-ignore
     readItems("game_star_projects", {
       filter: { status: { _eq: "published" } },
       ...queryTranslations,

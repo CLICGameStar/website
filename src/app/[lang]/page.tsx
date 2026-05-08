@@ -1,25 +1,38 @@
 import { directus } from "@/directus";
-import { readItem, readItems, readSingleton } from "@directus/sdk";
+import { readItems, readSingleton } from "@directus/sdk";
 import {
   capitalize,
   getTranslation,
   queryTranslations,
   useTranslationTable,
 } from "@/locales";
-import DirectusImage from "@/components/DirectusImage";
-import {
-  AssociationMembership,
-  GameStarSocialLink,
-  Member,
-  SocialLink,
-} from "@/types/aliases";
-import ComiteeCard from "@/components/ComiteeCard";
+import { AssociationMembership, Member } from "@/types/aliases";
 import ComiteeBar from "@/components/ComiteeBar";
 import { GameStar, GameStarEvent } from "@/types/aliases";
 import Image from "next/image";
 import EventCard from "@/components/EventCard";
 import Link from "next/link";
 import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+
+  const game_star = (await directus().request(
+    readSingleton("game_star", {
+      ...queryTranslations,
+    }),
+  )) as GameStar;
+  const game_star_translation = getTranslation(game_star, lang);
+
+  return {
+    title: "Game*",
+    description: game_star_translation.about_text,
+  };
+}
 
 export default async function Home({
   params,
@@ -30,7 +43,6 @@ export default async function Home({
   const tt = await useTranslationTable(lang);
 
   let commissions = await directus().request(
-    //@ts-ignore
     readItems("commissions", {
       filter: { slug: { _eq: "game-star" } },
       ...queryTranslations,
@@ -40,12 +52,7 @@ export default async function Home({
 
   let comitees = (await directus().request(
     readItems("commission_memberships", {
-      fields: [
-        "*",
-        { member: ["*"] },
-        //@ts-ignore
-        { translations: ["*"] },
-      ],
+      fields: ["*", { member: ["*"] }, { translations: ["*"] }],
       filter: {
         level: { _eq: "committee" },
         commission: { _eq: commission.id },
@@ -54,7 +61,6 @@ export default async function Home({
   )) as (AssociationMembership & { member: Member })[];
 
   const game_star = (await directus().request(
-    //@ts-ignore
     readSingleton("game_star", {
       ...queryTranslations,
     }),
@@ -63,7 +69,6 @@ export default async function Home({
   const game_star_translation = getTranslation(game_star, lang);
 
   let events = (await directus().request(
-    //@ts-ignore
     readItems("game_star_events", {
       filter: { status: { _eq: "published" } },
       ...queryTranslations,
@@ -95,7 +100,7 @@ export default async function Home({
       </div>
       <div className="content">
         <h2>{tt["gamestar.upcomingEvents"]}</h2>
-        <div className="events-grid">
+        <div className="cards-grid">
           {upcomingEvents.map((event) => (
             <EventCard key={event.slug} event={event} lang={lang} />
           ))}
@@ -107,7 +112,7 @@ export default async function Home({
           <ForwardArrowIcon />
           <Link href={`/${lang}/events`}>{tt["gamestar.seeAllEvents"]}</Link>
         </span>
-        <h2>{game_star_translation.about_title}</h2>
+        <h2>{capitalize(tt["about"])} de Game*</h2>
         <p>{game_star_translation.about_text}</p>
         <h2>{capitalize(tt["committee"])}</h2>
       </div>
@@ -131,9 +136,9 @@ function getUpcomingEvents(events: GameStarEvent[]): GameStarEvent[] {
   const now = new Date();
 
   return events
-    .map((event) => ({ ...event, startDate: new Date(event.start!) }))
-    .filter((event) => event.startDate > now)
-    .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
+    .map((event) => ({ ...event, endDate: new Date(event.end!) }))
+    .filter((event) => event.endDate > now)
+    .sort((a, b) => a.endDate.getTime() - b.endDate.getTime())
     .slice(0, 3)
-    .map(({ startDate, ...event }) => event);
+    .map(({ endDate, ...event }) => event);
 }

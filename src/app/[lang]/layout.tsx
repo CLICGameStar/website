@@ -5,11 +5,6 @@ import { capitalize, useTranslationTable } from "@/locales";
 import "@/styles/style.scss";
 import { readItems } from "@directus/sdk";
 
-export const metadata = {
-  title: "Game*",
-  description: "Game* is a student association at EPFL",
-};
-
 export default async function RootLayout({
   children,
   params,
