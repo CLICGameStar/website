@@ -112,7 +112,7 @@ export default async function Home({
           <ForwardArrowIcon />
           <Link href={`/${lang}/events`}>{tt["gamestar.seeAllEvents"]}</Link>
         </span>
-        <h2>{capitalize(tt["about"])} de Game*</h2>
+        <h2>{capitalize(tt["about"])}</h2>
         <p>{game_star_translation.about_text}</p>
         <h2>{capitalize(tt["committee"])}</h2>
       </div>
