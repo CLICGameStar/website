@@ -10,29 +10,9 @@ import { AssociationMembership, Member } from "@/types/aliases";
 import ComiteeBar from "@/components/ComiteeBar";
 import { GameStar, GameStarEvent } from "@/types/aliases";
 import Image from "next/image";
-import EventCard from "@/components/EventCard";
 import Link from "next/link";
 import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
-  const { lang } = await params;
-
-  const game_star = (await directus().request(
-    readSingleton("game_star", {
-      ...queryTranslations,
-    }),
-  )) as GameStar;
-  const game_star_translation = getTranslation(game_star, lang);
-
-  return {
-    title: "Game*",
-    description: game_star_translation.about_text,
-  };
-}
+import { EventCard } from "@/components/Cards";
 
 export default async function Home({
   params,

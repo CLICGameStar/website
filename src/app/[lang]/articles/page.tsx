@@ -2,7 +2,20 @@ import { directus } from "@/directus";
 import { capitalize, useTranslationTable } from "@/locales";
 import { readItems } from "@directus/sdk";
 import { GameStarArticle } from "@/types/aliases";
-import ArticleCard from "@/components/ArticleCard";
+import { ArticleCard } from "@/components/Cards";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const tt = await useTranslationTable(lang);
+
+  return {
+    title: `${capitalize(tt["article"])}s | Game*`,
+  };
+}
 
 export default async function Articles({
   params,

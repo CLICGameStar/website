@@ -2,7 +2,20 @@ import { directus } from "@/directus";
 import { capitalize, queryTranslations, useTranslationTable } from "@/locales";
 import { readItems } from "@directus/sdk";
 import { GameStarEvent } from "@/types/aliases";
-import EventCard from "@/components/EventCard";
+import { EventCard } from "@/components/Cards";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const tt = await useTranslationTable(lang);
+
+  return {
+    title: `${capitalize(tt["event"])}s | Game*`,
+  };
+}
 
 export default async function Events({
   params,

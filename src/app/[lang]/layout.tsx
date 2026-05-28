@@ -1,9 +1,35 @@
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { directus } from "@/directus";
-import { capitalize, useTranslationTable } from "@/locales";
+import {
+  capitalize,
+  getTranslation,
+  queryTranslations,
+  useTranslationTable,
+} from "@/locales";
 import "@/styles/style.scss";
-import { readItems } from "@directus/sdk";
+import { GameStar } from "@/types/aliases";
+import { readItems, readSingleton } from "@directus/sdk";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+
+  const game_star = (await directus().request(
+    readSingleton("game_star", {
+      ...queryTranslations,
+    }),
+  )) as GameStar;
+  const game_star_translation = getTranslation(game_star, lang);
+
+  return {
+    title: "Game*",
+    description: game_star_translation.about_text,
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -28,10 +54,17 @@ export default async function RootLayout({
       <body>
         <Navigation
           navLinks={[
-            { name: capitalize(tt["home"]), href: "/" },
-            { name: capitalize(tt["event"]) + "s", href: "/events" },
-            { name: capitalize(tt["project"]) + "s", href: "/projects" },
-            { name: capitalize(tt["article"]) + "s", href: "/articles" },
+            { name: capitalize(tt["home"]), href: `/${lang}` },
+            { name: capitalize(tt["event"]) + "s", href: `/${lang}/events` },
+            {
+              name: capitalize(tt["project"]) + "s",
+              href: `/${lang}/projects`,
+            },
+            {
+              name: capitalize(tt["article"]) + "s",
+              href: `/${lang}/articles`,
+            },
+            { name: capitalize(tt["games"]), href: `/${lang}/games` },
           ]}
         />
         <main>{children}</main>

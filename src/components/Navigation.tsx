@@ -2,11 +2,7 @@
 import NavBar from "@components/NavBar";
 import NavMenu from "@components/NavMenu";
 import { useState } from "react";
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from "body-scroll-lock";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import DropdownCard from "./Dropdown";
 import LangIcon from "./icons/LangIcon";
 import { usePathname, useRouter } from "next/navigation";
