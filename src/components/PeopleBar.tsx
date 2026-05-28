@@ -1,4 +1,4 @@
-import ComiteeCard from "./ComiteeCard";
+import { ComiteeCard } from "./Cards";
 
 export default function PeopleBar({
   people,
