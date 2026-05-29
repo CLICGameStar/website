@@ -27,7 +27,7 @@ export default async function Articles({
 
   let articles = (await directus().request(
     readItems("game_star_articles", {
-      filter: { status: { _eq: "published" } },
+      filter: { published: { _eq: true } },
       fields: ["*", { translations: ["*"], authors: [{ members_id: ["*"] }] }],
     }),
   )) as GameStarArticle[];

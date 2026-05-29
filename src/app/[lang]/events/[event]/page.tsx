@@ -2,13 +2,13 @@ import { directus } from "@/directus";
 import { getTranslation, queryTranslations } from "@/locales";
 import { GameStarEvent } from "@/types/aliases";
 import { readItems } from "@directus/sdk";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Markdown from "react-markdown";
 
 async function getEvent(event_slug: string): Promise<GameStarEvent> {
   const events = (await directus().request(
     readItems("game_star_events", {
-      filter: { status: { _eq: "published" }, slug: { _eq: event_slug } },
+      filter: { slug: { _eq: event_slug } },
       limit: 1,
       ...queryTranslations,
     }),
@@ -44,7 +44,11 @@ export default async function Event({
   params: Promise<{ event: string; lang: string }>;
 }) {
   const { event: event_slug, lang } = await params;
-  const translation = getTranslation(await getEvent(event_slug), lang);
+  const event = await getEvent(event_slug);
+
+  if (event.redirection) redirect(event.redirection);
+
+  const translation = getTranslation(event, lang);
 
   return (
     <div className="article">
