@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky && git submodule update --init",
+    "prepare": "husky",
     "load-directus": "sh directus-config/load.sh",
     "save-directus": "sh directus-config/save.sh",
     "save-directus-data": "sh directus-config/save-data.sh",

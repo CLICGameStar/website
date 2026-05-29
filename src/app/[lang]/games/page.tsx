@@ -1,8 +1,8 @@
 import { directus } from "@/directus";
 import { capitalize, queryTranslations, useTranslationTable } from "@/locales";
 import { readItems } from "@directus/sdk";
-import { GameStarProject } from "@/types/aliases";
-import { ProjectCard } from "@/components/Cards";
+import { GameStarGame } from "@/types/aliases";
+import { GameCard } from "@/components/Cards";
 
 export async function generateMetadata({
   params,
@@ -13,11 +13,11 @@ export async function generateMetadata({
   const tt = await useTranslationTable(lang);
 
   return {
-    title: `${capitalize(tt["project"])}s | Game*`,
+    title: `${capitalize(tt["games"])} | Game*`,
   };
 }
 
-export default async function Projects({
+export default async function Games({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -25,22 +25,21 @@ export default async function Projects({
   const { lang } = await params;
   const tt = await useTranslationTable(lang);
 
-  let projects = (await directus().request(
-    readItems("game_star_projects", {
-      filter: { status: { _eq: "published" } },
+  let games = (await directus().request(
+    readItems("game_star_games", {
       ...queryTranslations,
     }),
-  )) as GameStarProject[];
+  )) as GameStarGame[];
 
   return (
     <div className="content">
-      <h1>{capitalize(tt["project"])}s</h1>
+      <h1>{capitalize(tt["games"])}</h1>
       <div className="cards-list">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} lang={lang} />
+        {games.map((game) => (
+          <GameCard key={game.slug} game={game} lang={lang} />
         ))}
       </div>
-      {projects.length === 0 ? <p>{tt["gamestar.comingSoon"]} !</p> : null}
+      {games.length === 0 ? <p>{tt["gamestar.comingSoon"]} !</p> : null}
     </div>
   );
 }
