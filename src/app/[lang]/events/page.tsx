@@ -27,7 +27,7 @@ export default async function Events({
 
   let events = (await directus().request(
     readItems("game_star_events", {
-      filter: { status: { _eq: "published" } },
+      filter: { published: { _eq: true } },
       ...queryTranslations,
     }),
   )) as GameStarEvent[];

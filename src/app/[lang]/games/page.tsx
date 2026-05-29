@@ -27,6 +27,7 @@ export default async function Games({
 
   let games = (await directus().request(
     readItems("game_star_games", {
+      filter: { published: { _eq: true } },
       ...queryTranslations,
     }),
   )) as GameStarGame[];

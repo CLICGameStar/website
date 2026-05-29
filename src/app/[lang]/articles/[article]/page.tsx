@@ -14,7 +14,7 @@ async function getArticle(article_slug: string): Promise<GameStarArticle> {
   const articles = (await directus().request(
     readItems("game_star_articles", {
       fields: ["*", { translations: ["*"], authors: [{ members_id: ["*"] }] }],
-      filter: { status: { _eq: "published" }, slug: { _eq: article_slug } },
+      filter: { slug: { _eq: article_slug } },
       limit: 1,
     }),
   )) as GameStarArticle[];

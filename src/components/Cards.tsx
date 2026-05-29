@@ -23,7 +23,13 @@ export async function ProjectCard({
 
   return (
     <div key={project.slug} className="card">
-      <Link href={`/${lang}/projects/${project.slug}`}>
+      <Link
+        href={
+          project.redirection
+            ? project.redirection
+            : `/${lang}/projects/${project.slug}`
+        }
+      >
         <div className="card-head">
           <h3>{translation.title}</h3>
         </div>
@@ -47,7 +53,13 @@ export function EventCard({
   });
   return (
     <div key={event.slug} className="card">
-      <Link href={`/${lang}/events/${event.slug}`}>
+      <Link
+        href={
+          event.redirection
+            ? event.redirection
+            : `/${lang}/events/${event.slug}`
+        }
+      >
         <div className="card-head">
           <h3>{translation.title}</h3>
           <div className="event-start">{start_date}</div>
