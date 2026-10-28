@@ -32,7 +32,6 @@ export default async function Home({
       ...queryTranslations,
     }),
   );
-  console.log("#####################################", commissions);
   let commission = commissions[0];
 
   let comitees = (await directus().request(
