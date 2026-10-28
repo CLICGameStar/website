@@ -1,18 +1,22 @@
+import { EventCard } from "@/components/Cards";
+import ComiteeBar from "@/components/ComiteeBar";
+import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
 import { directus } from "@/directus";
-import { readItems, readSingleton } from "@directus/sdk";
 import {
   capitalize,
   getTranslation,
   queryTranslations,
   useTranslationTable,
 } from "@/locales";
-import { AssociationMembership, Member } from "@/types/aliases";
-import ComiteeBar from "@/components/ComiteeBar";
-import { GameStar, GameStarEvent } from "@/types/aliases";
+import {
+  AssociationMembership,
+  GameStar,
+  GameStarEvent,
+  Member,
+} from "@/types/aliases";
+import { readItems, readSingleton } from "@directus/sdk";
 import Image from "next/image";
 import Link from "next/link";
-import ForwardArrowIcon from "@/components/icons/ForwardArrowIcon";
-import { EventCard } from "@/components/Cards";
 
 export default async function Home({
   params,
@@ -28,6 +32,7 @@ export default async function Home({
       ...queryTranslations,
     }),
   );
+  console.log("#####################################", commissions);
   let commission = commissions[0];
 
   let comitees = (await directus().request(
