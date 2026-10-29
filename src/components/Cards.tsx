@@ -46,13 +46,15 @@ export function EventCard({
   event: GameStarEvent;
   lang: string;
 }) {
+  const now = new Date();
+  const endDate = new Date(event.end!);
   const translation = getTranslation(event, lang);
   let start_date = new Date(event.start!).toLocaleDateString("fr-FR", {
     hour: "2-digit",
     minute: "2-digit",
   });
   return (
-    <div key={event.slug} className="card">
+    <div key={event.slug} className={endDate < now ? `card-old` : `card`}>
       <Link
         href={
           event.redirection

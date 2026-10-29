@@ -1,7 +1,8 @@
 .card {
   padding: 1em;
-  border: 3px solid #000000;
+  border: 3px solid var(--text-color);
   border-radius: 10px;
+  transition-duration: 0.1s;
 
   .card-head {
     display: flex;
@@ -25,6 +26,57 @@
 
   .authors {
     font-weight: bold;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.card-old {
+  padding: 1em;
+  border: 3px solid var(--custom-gray);
+  border-radius: 10px;
+  transition-duration: 0.1s;
+
+  color: var(--custom-gray);
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+    flex-wrap: wrap;
+
+    * {
+      margin: 0.2rem;
+    }
+  }
+
+  p {
+    margin: 0.2rem 0;
+  }
+
+  .event-start {
+    font-weight: bold;
+  }
+
+  .authors {
+    font-weight: bold;
+  }
+
+  h3 {
+    color: var(--custom-gray);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    color: var(--text-color);
+    border-color: var(--text-color);
+
+    h3 {
+      color: var(--text-color);
+    }
   }
 }
 
